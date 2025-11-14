@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "**"
+  schedule:
+    - cron: "3 3 * * 2" # 3:03 AM, every Tuesday
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  Lint:
+    runs-on: macos-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v5
+
+      - name: Install SwiftFormat
+        uses: pkgxdev/setup@v4
+        with:
+          +: swiftformat@latest
+
+      - name: SwiftFormat Lint
+        run: swiftformat --lint . --reporter github-actions-log
+  macOS:
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
+    name: ${{ matrix.platform }} (Swift ${{ matrix.swift }})
+    runs-on: macos-15
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - macOS
+        swift:
+          - "6.0"
+          - "6.1"
+          - "6.2"
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v5
+
+      - name: Run Tests
+        uses: mxcl/xcodebuild@v3
+        with:
+          platform: ${{ matrix.platform }}
+          swift: ~${{ matrix.swift }}
+          action: test
+          verbosity: xcbeautify
