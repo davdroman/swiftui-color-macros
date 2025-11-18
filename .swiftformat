@@ -3,7 +3,7 @@
 
 --header ignore
 --indent tab
---ifdef no-indent
+--ifdef preserve
 --ranges preserve
 --extensionacl on-declarations
 --trailing-commas always
@@ -11,8 +11,11 @@
 
 # Disabled rules
 --disable blankLinesAroundMark
+--disable blankLinesBetweenScopes
+--disable docComments
 --disable redundantBackticks
 --disable redundantLetError
+--disable redundantRawValues
 --disable redundantSelf
 --disable redundantStaticSelf
 --disable redundantType
