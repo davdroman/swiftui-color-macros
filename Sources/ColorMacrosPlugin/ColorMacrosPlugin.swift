@@ -65,7 +65,9 @@ private enum ColorMacroDiagnostic: DiagnosticMessage, Error {
 	case invalidNumericLiteral(label: String)
 	case valueOutOfRange(description: String, value: Double)
 
-	var severity: DiagnosticSeverity { .error }
+	var severity: DiagnosticSeverity {
+		.error
+	}
 
 	var message: String {
 		switch self {
