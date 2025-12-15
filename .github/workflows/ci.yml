@@ -54,14 +54,14 @@ jobs:
           action: test
           verbosity: xcbeautify
 
-  check-macro-compatibility:
-    name: Check Macro Compatibility
+  check-swift-syntax-compatibility:
+    name: Swift Syntax Compatibility Check
     runs-on: macos-latest
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      - name: Run Swift Macro Compatibility Check
+      - name: Run Swift Syntax Compatibility Check
         uses: davdroman/swift-macro-compatibility-check@from-version
         with:
           run-tests: false
