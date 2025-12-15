@@ -65,5 +65,5 @@ jobs:
         uses: davdroman/swift-macro-compatibility-check@from-version
         with:
           run-tests: false
-          from-version: "600.0.0"
+          from-version: 600.0.0
           major-versions-only: true
