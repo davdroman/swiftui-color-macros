@@ -28,6 +28,7 @@ jobs:
 
       - name: SwiftFormat Lint
         run: swiftformat --lint . --reporter github-actions-log
+
   macOS:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
     name: ${{ matrix.platform }} (Swift ${{ matrix.swift }})
@@ -52,3 +53,17 @@ jobs:
           swift: ~${{ matrix.swift }}
           action: test
           verbosity: xcbeautify
+
+  check-macro-compatibility:
+    name: Check Macro Compatibility
+    runs-on: macos-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v5
+
+      - name: Run Swift Macro Compatibility Check
+        uses: davdroman/swift-macro-compatibility-check@from-version
+        with:
+          run-tests: false
+          from-version: "600.0.0"
+          major-versions-only: true
