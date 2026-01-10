@@ -4,18 +4,25 @@ import CompilerPluginSupport
 import PackageDescription
 
 let package = Package(
-	name: "swiftui-color-macros",
-	platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v6), .macCatalyst(.v13)],
+	name: "swiftui-color-macro",
+	platforms: [
+		.iOS(.v13),
+		.macCatalyst(.v13),
+		.macOS(.v10_15),
+		.tvOS(.v13),
+		.visionOS(.v1),
+		.watchOS(.v6),
+	],
 	products: [
 		.library(
-			name: "ColorMacros",
-			targets: ["ColorMacros"]
+			name: "ColorMacro",
+			targets: ["ColorMacro"]
 		),
 	],
 	dependencies: [],
 	targets: [
 		.macro(
-			name: "ColorMacrosPlugin",
+			name: "ColorMacroPlugin",
 			dependencies: [
 				.product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
 				.product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
@@ -23,13 +30,13 @@ let package = Package(
 			]
 		),
 
-		.target(name: "ColorMacros", dependencies: ["ColorMacrosPlugin"]),
+		.target(name: "ColorMacro", dependencies: ["ColorMacroPlugin"]),
 
 		.testTarget(
-			name: "ColorMacrosTests",
+			name: "ColorMacroTests",
 			dependencies: [
-				"ColorMacros",
-				"ColorMacrosPlugin",
+				"ColorMacro",
+				"ColorMacroPlugin",
 				.product(name: "MacroTesting", package: "swift-macro-testing"),
 				.product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
 			]

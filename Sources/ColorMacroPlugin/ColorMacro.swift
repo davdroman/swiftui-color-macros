@@ -1,8 +1,6 @@
 import Foundation
-import SwiftCompilerPlugin
 import SwiftDiagnostics
 import SwiftSyntax
-import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
 private enum ColorVariant: String, CaseIterable {
@@ -59,7 +57,6 @@ private enum ColorMacroDiagnostic: DiagnosticMessage, Error {
 	case unexpectedArgumentCount(label: String, expected: Int, actual: Int)
 	case hexNonStringLiteral
 	case hexInterpolatedString
-	case hexEmpty
 	case hexUnsupportedLength(Int)
 	case hexInvalidCharacter(Character)
 	case invalidNumericLiteral(label: String)
@@ -83,8 +80,6 @@ private enum ColorMacroDiagnostic: DiagnosticMessage, Error {
 			"Hex values must be specified as string literals."
 		case .hexInterpolatedString:
 			"Hex strings cannot contain interpolation or multiple segments."
-		case .hexEmpty:
-			"Provide at least one hexadecimal digit."
 		case let .hexUnsupportedLength(length):
 			"Hex literals must contain 3, 4, 6, or 8 digits, but found \(length)."
 		case let .hexInvalidCharacter(character):
@@ -97,7 +92,7 @@ private enum ColorMacroDiagnostic: DiagnosticMessage, Error {
 	}
 
 	var diagnosticID: MessageID {
-		MessageID(domain: "ColorMacros", id: "\(self)")
+		MessageID(domain: "ColorMacro", id: "\(self)")
 	}
 
 	private static func format(_ value: Double) -> String {
@@ -197,11 +192,6 @@ struct ColorMacro: ExpressionMacro {
 
 		if sanitized.lowercased().hasPrefix("0x") {
 			sanitized.removeFirst(2)
-		}
-
-		guard !sanitized.isEmpty else {
-			diagnose(.hexEmpty, at: literal, in: context)
-			return fallbackColor
 		}
 
 		switch parseHexComponents(from: sanitized) {
@@ -614,11 +604,4 @@ extension Array {
 		guard indices.contains(index) else { return nil }
 		return self[index]
 	}
-}
-
-@main
-struct ColorMacrosCompilerPlugin: CompilerPlugin {
-	let providingMacros: [any Macro.Type] = [
-		ColorMacro.self,
-	]
 }
