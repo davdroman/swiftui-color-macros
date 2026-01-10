@@ -97,7 +97,7 @@ private enum ColorMacroDiagnostic: DiagnosticMessage, Error {
 	}
 
 	var diagnosticID: MessageID {
-		MessageID(domain: "ColorMacros", id: "\(self)")
+		MessageID(domain: "ColorMacro", id: "\(self)")
 	}
 
 	private static func format(_ value: Double) -> String {
@@ -617,7 +617,7 @@ extension Array {
 }
 
 @main
-struct ColorMacrosCompilerPlugin: CompilerPlugin {
+struct ColorMacroCompilerPlugin: CompilerPlugin {
 	let providingMacros: [any Macro.Type] = [
 		ColorMacro.self,
 	]

@@ -1,15 +1,15 @@
 # `#Color`
 
-[![CI](https://github.com/davdroman/swiftui-color-macros/actions/workflows/ci.yml/badge.svg)](https://github.com/davdroman/swiftui-color-macros/actions/workflows/ci.yml)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdavdroman%2Fswiftui-color-macros%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/davdroman/swiftui-color-macros)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdavdroman%2Fswiftui-color-macros%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/davdroman/swiftui-color-macros)
+[![CI](https://github.com/davdroman/swiftui-color-macro/actions/workflows/ci.yml/badge.svg)](https://github.com/davdroman/swiftui-color-macro/actions/workflows/ci.yml)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdavdroman%2Fswiftui-color-macro%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/davdroman/swiftui-color-macro)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdavdroman%2Fswiftui-color-macro%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/davdroman/swiftui-color-macro)
 
-`ColorMacros` is a bundle of expression macros that turn the color tokens you copy from
+`ColorMacro` is a bundle of expression macros that turn the color tokens you copy from
 Figma/Sketch into compile-time `SwiftUI.Color` literals:
 
 ```swift
 import SwiftUI
-import ColorMacros
+import ColorMacro
 
 let brand = #Color(hex: "#FF9900")
 let overlay = #Color(hex: "0x336699CC")
@@ -40,13 +40,13 @@ Add the package to your project:
 
 ```swift
 dependencies: [
-  .package(url: "https://github.com/davdroman/swiftui-color-macros.git", from: "0.1.0")
+  .package(url: "https://github.com/davdroman/swiftui-color-macro.git", from: "0.1.0")
 ],
 targets: [
   .target(
     name: "App",
     dependencies: [
-      .product(name: "ColorMacros", package: "swiftui-color-macros")
+      .product(name: "ColorMacro", package: "swiftui-color-macro")
     ]
   )
 ]

@@ -1,5 +1,5 @@
-#if canImport(ColorMacrosPlugin)
-@testable import ColorMacrosPlugin
+#if canImport(ColorMacroPlugin)
+@testable import ColorMacroPlugin
 import MacroTesting
 import Testing
 
@@ -10,7 +10,7 @@ import Testing
 		record: .missing
 	)
 )
-struct ColorMacrosTests {
+struct ColorMacroTests {
 	@Test
 	func hexSixDigits() {
 		assertMacro {
