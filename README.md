@@ -5,7 +5,7 @@
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdavdroman%2Fswiftui-color-macro%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/davdroman/swiftui-color-macro)
 
 `ColorMacro` is a bundle of expression macros that turn the color tokens you copy from
-Figma/Sketch into compile-time `SwiftUI.Color` literals:
+Figma/Sketch into compile-time `SwiftUI.Color` values:
 
 ```swift
 import SwiftUI
@@ -50,5 +50,3 @@ targets: [
   )
 ]
 ```
-
-Then import the module alongside SwiftUI wherever you need the macro.
