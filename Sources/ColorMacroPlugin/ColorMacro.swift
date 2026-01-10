@@ -607,10 +607,3 @@ extension Array {
 		return self[index]
 	}
 }
-
-@main
-struct ColorMacroCompilerPlugin: CompilerPlugin {
-	let providingMacros: [any Macro.Type] = [
-		ColorMacro.self,
-	]
-}
