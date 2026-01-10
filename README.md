@@ -24,7 +24,6 @@ let accent = #Color(hsba: 200, 60, 80, 0.65)
 - `rgb:` / `rgba:` accept 0–255 integer channels, optionally plus opacity (0–1).
 - `hsl:` / `hsla:` accept degrees/percentages, matching what design tools output.
 - `hsb:` / `hsba:` cover hue–saturation–brightness (%), again with optional opacity.
-- Every variant emits a `SwiftUI.Color` literal (no runtime helpers) and validates inputs at build time.
 
 Example diagnostic:
 
