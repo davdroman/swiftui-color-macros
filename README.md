@@ -40,7 +40,7 @@ Add the package to your project:
 
 ```swift
 dependencies: [
-  .package(url: "https://github.com/davdroman/swiftui-color-macro.git", from: "0.1.0")
+  .package(url: "https://github.com/davdroman/swiftui-color-macro", from: "0.2.0")
 ],
 targets: [
   .target(
