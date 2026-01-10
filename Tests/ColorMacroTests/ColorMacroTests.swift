@@ -258,7 +258,7 @@ struct ColorMacroTests {
 			"""
 			#Color(hex: "#")
 			            ┬──
-			            ╰─ 🛑 Provide at least one hexadecimal digit.
+			            ╰─ 🛑 Hex literals must contain 3, 4, 6, or 8 digits, but found 0.
 			"""
 		}
 	}
