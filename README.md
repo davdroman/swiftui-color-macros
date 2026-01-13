@@ -4,7 +4,7 @@
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdavdroman%2FColorMacro%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/davdroman/ColorMacro)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdavdroman%2FColorMacro%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/davdroman/ColorMacro)
 
-`#Color` turns the color tokens you copy from Figma/Sketch into compile-time checked `SwiftUI.Color` values:
+`#Color` turns the color tokens you copy from Figma/Sketch into compile-time-checked `SwiftUI.Color` values:
 
 ```swift
 import SwiftUI
