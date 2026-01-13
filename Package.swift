@@ -4,7 +4,7 @@ import CompilerPluginSupport
 import PackageDescription
 
 let package = Package(
-	name: "swiftui-color-macro",
+	name: "ColorMacro",
 	platforms: [
 		.iOS(.v13),
 		.macCatalyst(.v13),

@@ -1,11 +1,10 @@
 # `#Color`
 
-[![CI](https://github.com/davdroman/swiftui-color-macro/actions/workflows/ci.yml/badge.svg)](https://github.com/davdroman/swiftui-color-macro/actions/workflows/ci.yml)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdavdroman%2Fswiftui-color-macro%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/davdroman/swiftui-color-macro)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdavdroman%2Fswiftui-color-macro%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/davdroman/swiftui-color-macro)
+[![CI](https://github.com/davdroman/ColorMacro/actions/workflows/ci.yml/badge.svg)](https://github.com/davdroman/ColorMacro/actions/workflows/ci.yml)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdavdroman%2FColorMacro%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/davdroman/ColorMacro)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdavdroman%2FColorMacro%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/davdroman/ColorMacro)
 
-`ColorMacro` is a bundle of expression macros that turn the color tokens you copy from
-Figma/Sketch into compile-time `SwiftUI.Color` values:
+`#Color` turns the color tokens you copy from Figma/Sketch into compile-time checked `SwiftUI.Color` values:
 
 ```swift
 import SwiftUI
@@ -39,13 +38,13 @@ Add the package to your project:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/davdroman/swiftui-color-macro", from: "0.2.0"),
+    .package(url: "https://github.com/davdroman/ColorMacro", from: "0.2.0"),
 ],
 targets: [
     .target(
         name: "MyTarget",
         dependencies: [
-            .product(name: "ColorMacro", package: "swiftui-color-macro"),
+            .product(name: "ColorMacro", package: "ColorMacro"),
         ]
     ),
 ]
