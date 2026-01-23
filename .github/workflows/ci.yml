@@ -29,7 +29,7 @@ jobs:
       - name: SwiftFormat Lint
         run: swiftformat --lint . --reporter github-actions-log
 
-  macOS:
+  apple:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
     name: ${{ matrix.platform }} (Swift ${{ matrix.swift }})
     runs-on: macos-15
@@ -37,7 +37,12 @@ jobs:
       fail-fast: false
       matrix:
         platform:
+          - iOS
+          - mac-catalyst
           - macOS
+          - tvOS
+          - watchOS
+          - visionOS
         swift:
           - "6.0"
           - "6.1"
@@ -45,6 +50,30 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5
+
+      - name: Select Xcode version
+        uses: mxcl/xcodebuild@v3
+        with:
+          swift: ~${{ matrix.swift }}
+          action: none
+          verbosity: xcbeautify
+
+      - name: Disable SwiftSyntax Prebuilts
+        run: |
+          defaults write com.apple.dt.Xcode IDEPackageEnablePrebuilts -bool NO
+
+          # nuke cache to ensure it takes effect
+          rm -rf ~/Library/Developer/Xcode/DerivedData
+          rm -rf ~/Library/Developer/Xcode/SourcePackages
+          rm -rf ~/Library/Caches/org.swift.swiftpm
+
+      - if: ${{ matrix.platform != 'macOS' && matrix.platform != 'mac-catalyst' }}
+        name: Download Default Runtime
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 15
+          max_attempts: 3
+          command: xcodebuild -downloadPlatform ${{ matrix.platform }}
 
       - name: Run Tests
         uses: mxcl/xcodebuild@v3
