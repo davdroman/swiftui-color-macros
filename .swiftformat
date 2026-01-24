@@ -8,6 +8,7 @@
 --extensionacl on-declarations
 --trailing-commas always
 --nil-init insert
+--import-grouping testable-last
 
 # Disabled rules
 --disable blankLinesAroundMark
