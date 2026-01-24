@@ -389,9 +389,10 @@ struct ColorMacro: ExpressionMacro {
 			return Double(trimmed)
 		}
 
-		if let prefix = expression.as(PrefixOperatorExprSyntax.self),
-		   prefix.operator.text == "-",
-		   prefix.expression.is(IntegerLiteralExprSyntax.self) || prefix.expression.is(FloatLiteralExprSyntax.self)
+		if
+			let prefix = expression.as(PrefixOperatorExprSyntax.self),
+			prefix.operator.text == "-",
+			prefix.expression.is(IntegerLiteralExprSyntax.self) || prefix.expression.is(FloatLiteralExprSyntax.self)
 		{
 			let negative = "-" + prefix.expression.description
 				.replacingOccurrences(of: "_", with: "")

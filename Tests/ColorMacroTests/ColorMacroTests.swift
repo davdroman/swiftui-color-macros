@@ -1,7 +1,7 @@
 #if canImport(ColorMacroPlugin)
-@testable import ColorMacroPlugin
 import MacroTesting
 import Testing
+@testable import ColorMacroPlugin
 
 @Suite(
 	.macros(
