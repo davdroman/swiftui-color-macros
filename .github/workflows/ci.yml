@@ -15,7 +15,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  Lint:
+  lint:
+    name: Lint
     runs-on: macos-latest
     steps:
       - name: Git Checkout
