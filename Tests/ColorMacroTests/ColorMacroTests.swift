@@ -1,7 +1,7 @@
-#if canImport(ColorMacrosPlugin)
+#if canImport(ColorMacroPlugin)
 import MacroTesting
 import Testing
-@testable import ColorMacrosPlugin
+@testable import ColorMacroPlugin
 
 @Suite(
 	.macros(
@@ -10,7 +10,33 @@ import Testing
 		record: .missing
 	)
 )
-struct ColorMacrosTests {
+struct ColorMacroTests {
+	@Test
+	func hexThreeDigits() {
+		assertMacro {
+			"""
+			#Color(hex: "#FFF")
+			"""
+		} expansion: {
+			"""
+			SwiftUI.Color(red: 1.0, green: 1.0, blue: 1.0, opacity: 1.0)
+			"""
+		}
+	}
+
+	@Test
+	func hexFourDigits() {
+		assertMacro {
+			"""
+			#Color(hex: "#0F8C")
+			"""
+		} expansion: {
+			"""
+			SwiftUI.Color(red: 0.0, green: 1.0, blue: 0.5333333333333333, opacity: 0.8)
+			"""
+		}
+	}
+
 	@Test
 	func hexSixDigits() {
 		assertMacro {
@@ -25,14 +51,27 @@ struct ColorMacrosTests {
 	}
 
 	@Test
-	func hexShorthandWithAlpha() {
+	func hexEightDigits() {
 		assertMacro {
 			"""
-			#Color(hex: "#0F8C")
+			#Color(hex: "#FF990080")
 			"""
 		} expansion: {
 			"""
-			SwiftUI.Color(red: 0.0, green: 1.0, blue: 0.5333333333333333, opacity: 0.8)
+			SwiftUI.Color(red: 1.0, green: 0.6, blue: 0.0, opacity: 0.5019607843137255)
+			"""
+		}
+	}
+
+	@Test
+	func hex0xPrefix() {
+		assertMacro {
+			"""
+			#Color(hex: "0xFF9900")
+			"""
+		} expansion: {
+			"""
+			SwiftUI.Color(red: 1.0, green: 0.6, blue: 0.0, opacity: 1.0)
 			"""
 		}
 	}
@@ -188,6 +227,68 @@ struct ColorMacrosTests {
 			#Color("#FFFFFF")
 			       ┬────────
 			       ╰─ 🛑 Label the first argument to #Color. Supported labels: hex, rgb, rgba, hsl, hsla, hsb, hsba.
+			"""
+		}
+	}
+
+	@Test
+	func hexInterpolatedString() {
+		assertMacro {
+			"""
+			let value = "FF"
+			_ = #Color(hex: "#\\(value)9900")
+			"""
+		} diagnostics: {
+			"""
+			let value = "FF"
+			_ = #Color(hex: "#\\(value)9900")
+			                ┬──────────────
+			                ╰─ 🛑 Hex strings cannot contain interpolation or multiple segments.
+			"""
+		}
+	}
+
+	@Test
+	func hexEmpty() {
+		assertMacro {
+			"""
+			#Color(hex: "#")
+			"""
+		} diagnostics: {
+			"""
+			#Color(hex: "#")
+			            ┬──
+			            ╰─ 🛑 Hex literals must contain 3, 4, 6, or 8 digits, but found 0.
+			"""
+		}
+	}
+
+	@Test
+	func hexUnsupportedLength() {
+		assertMacro {
+			"""
+			#Color(hex: "#12345")
+			"""
+		} diagnostics: {
+			"""
+			#Color(hex: "#12345")
+			            ┬───────
+			            ╰─ 🛑 Hex literals must contain 3, 4, 6, or 8 digits, but found 5.
+			"""
+		}
+	}
+
+	@Test
+	func negativeAlpha() {
+		assertMacro {
+			"""
+			#Color(rgba: 0, 0, 0, -0.5)
+			"""
+		} diagnostics: {
+			"""
+			#Color(rgba: 0, 0, 0, -0.5)
+			                      ┬───
+			                      ╰─ 🛑 Alpha must be between 0 and 1, but found -0.5.
 			"""
 		}
 	}
