@@ -1,18 +1,21 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.1
 
 import CompilerPluginSupport
 import PackageDescription
 
 let package = Package(
 	name: "swiftui-color-macros",
-	platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v6), .macCatalyst(.v13)],
-	products: [
-		.library(
-			name: "ColorMacros",
-			targets: ["ColorMacros"]
-		),
+	platforms: [
+		.iOS(.v13),
+		.macCatalyst(.v13),
+		.macOS(.v10_15),
+		.tvOS(.v13),
+		.visionOS(.v1),
+		.watchOS(.v6),
 	],
-	dependencies: [],
+	products: [
+		.library(name: "ColorMacros", targets: ["ColorMacros"]),
+	],
 	targets: [
 		.macro(
 			name: "ColorMacrosPlugin",
@@ -31,7 +34,6 @@ let package = Package(
 				"ColorMacros",
 				"ColorMacrosPlugin",
 				.product(name: "MacroTesting", package: "swift-macro-testing"),
-				.product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
 			]
 		),
 	]
@@ -47,5 +49,6 @@ for target in package.targets {
 	target.swiftSettings? += [
 		.enableUpcomingFeature("ExistentialAny"),
 		.enableUpcomingFeature("InternalImportsByDefault"),
+		.enableUpcomingFeature("MemberImportVisibility"),
 	]
 }

@@ -1,5 +1,7 @@
 #if canImport(ColorMacrosPlugin)
 import MacroTesting
+import SnapshotTesting
+import SwiftSyntax
 import Testing
 @testable import ColorMacrosPlugin
 
