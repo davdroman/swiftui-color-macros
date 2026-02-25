@@ -9,8 +9,8 @@ import Testing
 	.macros(
 		["Color": ColorMacro.self],
 		indentationWidth: .tab,
-		record: .missing
-	)
+		record: .missing,
+	),
 )
 struct ColorMacrosTests {
 	@Test

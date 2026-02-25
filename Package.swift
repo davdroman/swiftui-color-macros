@@ -23,7 +23,7 @@ let package = Package(
 				.product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
 				.product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
 				.product(name: "SwiftSyntaxBuilder", package: "swift-syntax"),
-			]
+			],
 		),
 
 		.target(name: "ColorMacros", dependencies: ["ColorMacrosPlugin"]),
@@ -34,9 +34,9 @@ let package = Package(
 				"ColorMacros",
 				"ColorMacrosPlugin",
 				.product(name: "MacroTesting", package: "swift-macro-testing"),
-			]
+			],
 		),
-	]
+	],
 )
 
 package.dependencies += [
