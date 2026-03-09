@@ -121,7 +121,7 @@ struct ColorMacro: ExpressionMacro {
 
 	static func expansion(
 		of node: some FreestandingMacroExpansionSyntax,
-		in context: some MacroExpansionContext
+		in context: some MacroExpansionContext,
 	) -> ExprSyntax {
 		guard let firstArgument = node.arguments.first else {
 			diagnose(.missingArgument, at: node.macroName, in: context)
@@ -154,20 +154,20 @@ struct ColorMacro: ExpressionMacro {
 
 	private static func expandHex(
 		arguments: LabeledExprListSyntax,
-		in context: some MacroExpansionContext
+		in context: some MacroExpansionContext,
 	) -> ExprSyntax {
 		guard arguments.count == 1 else {
 			if let expression = arguments.dropFirst().first?.expression {
 				diagnose(
 					.unexpectedArgumentCount(label: ColorVariant.hex.displayName, expected: 1, actual: arguments.count),
 					at: expression,
-					in: context
+					in: context,
 				)
 			} else if let first = arguments.first?.expression {
 				diagnose(
 					.unexpectedArgumentCount(label: ColorVariant.hex.displayName, expected: 1, actual: arguments.count),
 					at: first,
-					in: context
+					in: context,
 				)
 			}
 			return fallbackColor
@@ -216,7 +216,7 @@ struct ColorMacro: ExpressionMacro {
 	private static func expandRGB(
 		arguments: LabeledExprListSyntax,
 		variant: ColorVariant,
-		in context: some MacroExpansionContext
+		in context: some MacroExpansionContext,
 	) -> ExprSyntax {
 		guard arguments.count == variant.expectedArgumentCount else {
 			let anchor = arguments.last?.expression ?? arguments.first?.expression ?? ExprSyntax(stringLiteral: "")
@@ -224,10 +224,10 @@ struct ColorMacro: ExpressionMacro {
 				.unexpectedArgumentCount(
 					label: variant.displayName,
 					expected: variant.expectedArgumentCount,
-					actual: arguments.count
+					actual: arguments.count,
 				),
 				at: anchor,
-				in: context
+				in: context,
 			)
 			return fallbackColor
 		}
@@ -253,7 +253,7 @@ struct ColorMacro: ExpressionMacro {
 			red: normalized[0],
 			green: normalized[1],
 			blue: normalized[2],
-			alpha: alpha
+			alpha: alpha,
 		)
 
 		return colorExpression(from: components)
@@ -262,7 +262,7 @@ struct ColorMacro: ExpressionMacro {
 	private static func expandHSL(
 		arguments: LabeledExprListSyntax,
 		variant: ColorVariant,
-		in context: some MacroExpansionContext
+		in context: some MacroExpansionContext,
 	) -> ExprSyntax {
 		let channelCount = variant.includesAlpha ? 3 : variant.expectedArgumentCount
 		guard let values = integerValues(from: arguments, count: channelCount, variant: variant, in: context) else {
@@ -291,7 +291,7 @@ struct ColorMacro: ExpressionMacro {
 	private static func expandHSB(
 		arguments: LabeledExprListSyntax,
 		variant: ColorVariant,
-		in context: some MacroExpansionContext
+		in context: some MacroExpansionContext,
 	) -> ExprSyntax {
 		let channelCount = variant.includesAlpha ? 3 : variant.expectedArgumentCount
 		guard let values = integerValues(from: arguments, count: channelCount, variant: variant, in: context) else {
@@ -321,7 +321,7 @@ struct ColorMacro: ExpressionMacro {
 		from arguments: LabeledExprListSyntax,
 		count: Int,
 		variant: ColorVariant,
-		in context: some MacroExpansionContext
+		in context: some MacroExpansionContext,
 	) -> [UInt8]? {
 		var values: [UInt8] = []
 		var index = arguments.startIndex
@@ -339,7 +339,7 @@ struct ColorMacro: ExpressionMacro {
 	private static func parseUInt8Literal(
 		_ expression: ExprSyntax,
 		variant: ColorVariant,
-		in context: some MacroExpansionContext
+		in context: some MacroExpansionContext,
 	) -> UInt8? {
 		guard let literal = expression.as(IntegerLiteralExprSyntax.self) else {
 			diagnose(.invalidNumericLiteral(label: variant.displayName), at: expression, in: context)
@@ -357,10 +357,10 @@ struct ColorMacro: ExpressionMacro {
 			diagnose(
 				.valueOutOfRange(
 					description: "\(variant.componentDescription) must be between 0 and 255",
-					value: Double(value)
+					value: Double(value),
 				),
 				at: expression,
-				in: context
+				in: context,
 			)
 			return nil
 		}
@@ -371,7 +371,7 @@ struct ColorMacro: ExpressionMacro {
 	private static func parseAlphaLiteral(
 		_ expression: ExprSyntax,
 		variant: ColorVariant,
-		in context: some MacroExpansionContext
+		in context: some MacroExpansionContext,
 	) -> Double? {
 		guard let value = numberLiteralValue(from: expression) else {
 			diagnose(.invalidNumericLiteral(label: variant.displayName), at: expression, in: context)
@@ -382,7 +382,7 @@ struct ColorMacro: ExpressionMacro {
 			diagnose(
 				.valueOutOfRange(description: "Alpha must be between 0 and 1", value: value),
 				at: expression,
-				in: context
+				in: context,
 			)
 			return nil
 		}
@@ -432,7 +432,7 @@ struct ColorMacro: ExpressionMacro {
 
 	private static func expandShorthand(
 		digits: [Character],
-		includeAlpha: Bool
+		includeAlpha: Bool,
 	) -> Result<RGBA, ColorMacroDiagnostic> {
 		var values = [UInt8]()
 		values.reserveCapacity(digits.count)
@@ -455,14 +455,14 @@ struct ColorMacro: ExpressionMacro {
 				red: Double(red) / 255,
 				green: Double(green) / 255,
 				blue: Double(blue) / 255,
-				alpha: Double(alpha) / 255
-			)
+				alpha: Double(alpha) / 255,
+			),
 		)
 	}
 
 	private static func expandFullBytes(
 		_ characters: [Character],
-		includeAlpha: Bool
+		includeAlpha: Bool,
 	) -> Result<RGBA, ColorMacroDiagnostic> {
 		var bytes = [UInt8]()
 		bytes.reserveCapacity(characters.count / 2)
@@ -491,15 +491,15 @@ struct ColorMacro: ExpressionMacro {
 				red: Double(red) / 255,
 				green: Double(green) / 255,
 				blue: Double(blue) / 255,
-				alpha: Double(alpha) / 255
-			)
+				alpha: Double(alpha) / 255,
+			),
 		)
 	}
 
 	private static func rgbFromHSL(
 		hueDegrees: Double,
 		saturationPercent: Double,
-		lightnessPercent: Double
+		lightnessPercent: Double,
 	) -> (red: Double, green: Double, blue: Double) {
 		var hue = hueDegrees.truncatingRemainder(dividingBy: 360)
 		if hue < 0 { hue += 360 }
@@ -534,7 +534,7 @@ struct ColorMacro: ExpressionMacro {
 	private static func rgbFromHSB(
 		hueDegrees: Double,
 		saturationPercent: Double,
-		brightnessPercent: Double
+		brightnessPercent: Double,
 	) -> (red: Double, green: Double, blue: Double) {
 		var hue = hueDegrees.truncatingRemainder(dividingBy: 360)
 		if hue < 0 { hue += 360 }
@@ -604,7 +604,7 @@ struct ColorMacro: ExpressionMacro {
 	private static func diagnose(
 		_ message: ColorMacroDiagnostic,
 		at node: some SyntaxProtocol,
-		in context: some MacroExpansionContext
+		in context: some MacroExpansionContext,
 	) {
 		context.diagnose(Diagnostic(node: Syntax(node), message: message))
 	}

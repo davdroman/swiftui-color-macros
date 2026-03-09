@@ -1,5 +1,7 @@
 #if canImport(ColorMacrosPlugin)
 import MacroTesting
+import SnapshotTesting
+import SwiftSyntax
 import Testing
 @testable import ColorMacrosPlugin
 
@@ -7,8 +9,8 @@ import Testing
 	.macros(
 		["Color": ColorMacro.self],
 		indentationWidth: .tab,
-		record: .missing
-	)
+		record: .missing,
+	),
 )
 struct ColorMacrosTests {
 	@Test
