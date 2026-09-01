@@ -1,9 +1,9 @@
 #if canImport(ColorMacrosPlugin)
+@testable import ColorMacrosPlugin
 import MacroTesting
 import SnapshotTesting
 import SwiftSyntax
 import Testing
-@testable import ColorMacrosPlugin
 
 @Suite(
 	.macros(
@@ -14,7 +14,7 @@ import Testing
 )
 struct ColorMacrosTests {
 	@Test
-	func hexSixDigits() {
+	func `hex six digits`() {
 		assertMacro {
 			"""
 			#Color(hex: "#336699")
@@ -27,7 +27,7 @@ struct ColorMacrosTests {
 	}
 
 	@Test
-	func hexShorthandWithAlpha() {
+	func `hex shorthand with alpha`() {
 		assertMacro {
 			"""
 			#Color(hex: "#0F8C")
@@ -118,7 +118,7 @@ struct ColorMacrosTests {
 	}
 
 	@Test
-	func hexInvalidCharacter() {
+	func `hex invalid character`() {
 		assertMacro {
 			"""
 			#Color(hex: "#GGGGGG")
@@ -133,7 +133,7 @@ struct ColorMacrosTests {
 	}
 
 	@Test
-	func rgbOutOfRange() {
+	func `RGB out of range`() {
 		assertMacro {
 			"""
 			#Color(rgb: 300, 0, 0)
@@ -148,7 +148,7 @@ struct ColorMacrosTests {
 	}
 
 	@Test
-	func alphaOutOfRange() {
+	func `alpha out of range`() {
 		assertMacro {
 			"""
 			#Color(rgba: 0, 0, 0, 2)
@@ -163,7 +163,7 @@ struct ColorMacrosTests {
 	}
 
 	@Test
-	func nonNumericArgument() {
+	func `nonnumeric argument`() {
 		assertMacro {
 			"""
 			let alpha = 0.5
@@ -180,7 +180,7 @@ struct ColorMacrosTests {
 	}
 
 	@Test
-	func missingLabel() {
+	func `missing label`() {
 		assertMacro {
 			"""
 			#Color("#FFFFFF")
