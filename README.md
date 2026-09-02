@@ -54,3 +54,12 @@ targets: [
 ```
 
 Then import the module alongside SwiftUI wherever you need the macro.
+
+## Development
+
+Install [Mise](https://mise.jdx.dev/), then install the project tools and Git hooks:
+
+```sh
+mise install
+mise exec -- hk install --mise
+```
