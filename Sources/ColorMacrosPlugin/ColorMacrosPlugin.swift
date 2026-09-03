@@ -404,7 +404,8 @@ struct ColorMacro: ExpressionMacro {
 			prefix.operator.text == "-",
 			prefix.expression.is(IntegerLiteralExprSyntax.self) || prefix.expression.is(FloatLiteralExprSyntax.self)
 		{
-			let negative = "-" + prefix.expression.description
+			let negative = "-" + prefix.expression
+				.description
 				.replacingOccurrences(of: "_", with: "")
 				.trimmingCharacters(in: .whitespacesAndNewlines)
 			return Double(negative)
